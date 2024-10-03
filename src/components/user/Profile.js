@@ -1,11 +1,26 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { auth, storage } from '../firebase/firebase'
 import { ref,getDownloadURL,uploadBytes } from 'firebase/storage'
-import { updateProfile } from 'firebase/auth'
+import { updateProfile,onAuthStateChanged } from 'firebase/auth'
 const Profile = () => {
     //const[image,setImage] = useState("https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp")
     // const[user,setUser] = useState(auth.currentUser);
-    const user = auth.currentUser
+    const [isAuthenticated,setIsAuthenticated] = useState(false)
+  const [loading,setLoading] = useState(true)
+  const [user,setUser] =  useState(null)
+    
+    useEffect(()=>{
+        onAuthStateChanged(auth,(myUser)=>{
+          if(myUser){
+            setUser(myUser)
+            setIsAuthenticated(true)
+          }
+          else{
+            setIsAuthenticated(false)
+          }
+      setLoading(false)
+        })
+      },[])
 console.log(user);
    async function updatePicture(e){  
     try{ 
@@ -28,8 +43,11 @@ const snapshot = await uploadBytes(storageRef,file)
     console.log("picture upload error",error)
   }
     }
+    if(loading){
+        return <div className='flex justify-center'><span className="loading loading-spinner loading-md  "></span></div>
+    }
   return(
-    <div className='border-2 p-4 w-1/2 flex m-4'>
+    isAuthenticated?( <div className='border-2 p-4 w-1/2 flex m-4'>
 <div className=' w-36'>
 <div className="avatar">
   <div className="w-24 rounded-full">
@@ -46,7 +64,7 @@ const snapshot = await uploadBytes(storageRef,file)
 <p>Name : {user.displayName}</p>
 <p>Email : {user.email} </p>
 </div>
-    </div>
+    </div>):<p>user is not authenticated</p>
   )
 }
 

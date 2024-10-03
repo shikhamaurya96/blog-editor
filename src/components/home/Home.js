@@ -5,7 +5,9 @@ import { onAuthStateChanged } from 'firebase/auth';
 const Home = () => {
     const [isAuthenticated,setIsAuthenticated] = useState(false)
     const [loading,setLoading] = useState(true)
+    const [currentImageIndex,setCurrentImageIndex] = useState(0)
     const navigate = useNavigate();
+    const images = ['../images/blog-bg.jpg','../images/blog-bg2.avif','../images/cooking.jpg','../images/blog-bg3.jpg','../images/blog-bg4.jpg']
       useEffect(()=>{
         onAuthStateChanged(auth,(user)=>{
             if(user){
@@ -17,6 +19,13 @@ const Home = () => {
             setLoading(false)
         })
       },[])
+      useEffect(()=>{
+     const interval = setInterval(()=>{
+       setCurrentImageIndex((prevIndex)=>prevIndex===images.length-1?0:prevIndex+1)
+      },3000)
+      return ()=>clearInterval(interval)
+      },[images.length])
+
     const handleBlogCreation = ()=>{
     
         if(isAuthenticated){
@@ -33,8 +42,8 @@ const Home = () => {
     <div className="card bg-base-100 image-full w-screen h-screen shadow-xl">
   <figure>
     <img
-      src="./images/cooking.jpg"
-      alt="cooking" className='w-full'/>
+      src={images[currentImageIndex]}
+      alt="blog-bg" className='w-full'/>
 
   </figure>
   <div className="card-body mx-auto">

@@ -1,0 +1,7 @@
+#image-css img{
+    display: block; /* Make image behave like a block element */
+    margin: 0 auto; /* Horizontally center the image */
+    max-width: 100%; /* Ensure image doesn't overflow the container */
+    height: auto;
+     /* Maintain image aspect ratio */
+}

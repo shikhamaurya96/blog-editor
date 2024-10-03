@@ -36,7 +36,7 @@ useEffect(()=>{
 },[id]) // Dependency array ensures the fetch runs when postId changes
 console.log(post)
 const handleEdit = ()=>{
-navigate("/editor")
+navigate(`/editor/${id}`)
 }
 
 if(loading){
@@ -46,9 +46,9 @@ if(error){
     return <div>Error : {error}</div>
 }
   return (
-    <div className='bg-slate-300 w-full  p-12'>
-        <div className='float-right'><button className="btn btn-neutral" onClick={handleEdit}>Edit</button></div>
-    <div className='w-2/3  mx-auto bg-white shadow-xl h-full'>
+    <div className='bg-slate-300 w-full h-max p-12'>
+        
+    <div className='w-2/3  mx-auto bg-white shadow-xl h-max'>
      {
         post? (<EditorHtmlRenderer title={post.title} content={post.content}/>) : <p>Post not found</p>
      }

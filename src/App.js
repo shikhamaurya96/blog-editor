@@ -8,8 +8,10 @@ import Login from "./components/user/Login";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import Profile from "./components/user/Profile";
 import Post from "./components/blog-post/Post";
+import MyBlog from "./components/blog-post/MyBlog";
 function App() {
   //console.log(process.env.REACT_APP_FIREBASE_API_KEY)
+
   const router = createBrowserRouter([
     {
       path:"/",
@@ -28,10 +30,8 @@ function App() {
             path:"",
             element:<MyEditor/>
           },
-          {
-            path:"post/:id",
-            element:<Post/>
-          }
+          
+          
         ]
         },
        
@@ -47,7 +47,15 @@ function App() {
        {
         path:"/profile",
         element:<Profile/>
-       }
+       },
+       {
+        path:"/blogs/:option",
+        element:<MyBlog/>
+      },
+      {
+        path:"/post/:id",
+        element:<Post/>
+      }
       ]
     },
 
