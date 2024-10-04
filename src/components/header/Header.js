@@ -67,13 +67,13 @@ console.log(option)
   <div className="flex-1">
     <Link to={"/"} className="btn btn-ghost text-xl w-16 p-0"><img src='../images/blog-logo.png' className='w-full '/></Link>
   </div>
-  
-  <select className='p-2 mr-4' value={option} onChange={handleSelectOption}>
+  {(isAuthenticated)?<select className='p-2 mr-4' value={option} onChange={handleSelectOption}>
     <option value="" disabled selected>Post</option>
     <option value="published">Published</option>
     <option value="draft">Draft</option>
     
-  </select>
+  </select>:""}
+  
   <div className="flex-none gap-2">
     {
       (isAuthenticated)?
