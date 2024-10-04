@@ -51,9 +51,11 @@ const handleSelectOption = (e)=>{
   
  if(value=="published"){
   navigate(`/blogs/${value}`)
+  setOption("")
  }
  else if(value=="draft"){
   navigate(`/blogs/${value}`)
+  setOption("")
  }
 }
 console.log(option)

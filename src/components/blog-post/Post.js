@@ -46,7 +46,7 @@ if(error){
     return <div>Error : {error}</div>
 }
   return (
-    <div className='bg-slate-300 w-full h-max p-12'>
+    <div className=' w-full h-screen bg-slate-300 p-12'>
         
     <div className='w-2/3  mx-auto bg-white shadow-xl h-max'>
      {

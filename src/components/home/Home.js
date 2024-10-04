@@ -51,7 +51,7 @@ const Home = () => {
   <h1 className="card-title text-5xl ">Publish your passions, your way</h1>
     <p className='text-2xl text-center mt-4'>Create a unique and beautiful blog easily.</p>
     <div className=' text-center mt-8'>
-    <button className=' bg-orange-500 p-2 text-bold ' onClick={handleBlogCreation}>CREATE YOUR BLOG</button>
+    <button className=' bg-orange-600 p-2 text-bold text-xl ' onClick={handleBlogCreation}>CREATE YOUR BLOG</button>
     </div>
     
     </div>

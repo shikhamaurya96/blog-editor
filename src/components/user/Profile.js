@@ -47,7 +47,7 @@ const snapshot = await uploadBytes(storageRef,file)
         return <div className='flex justify-center'><span className="loading loading-spinner loading-md  "></span></div>
     }
   return(
-    isAuthenticated?( <div className='border-2 p-4 w-1/2 flex m-4'>
+    isAuthenticated?( <div className='border-2 p-4 w-1/2 flex m-4 bg-slate-300 mx-auto'>
 <div className=' w-36'>
 <div className="avatar">
   <div className="w-24 rounded-full">

@@ -4,26 +4,30 @@ import { collection,doc,getDoc,addDoc ,updateDoc} from 'firebase/firestore'
 import { auth, db} from '../firebase/firebase'
 import { getStorage,ref, uploadBytes, getDownloadURL  } from 'firebase/storage'
 import EditorHtmlRenderer from './EditorHtmlRenderer'
-import { useNavigate,useParams } from 'react-router-dom'
+import { useNavigate,useLocation } from 'react-router-dom'
 import { setTitleState,setContentState } from '../store/editorSlice'
 import { useDispatch,useSelector } from 'react-redux'
 import { onAuthStateChanged } from 'firebase/auth'
+
 const MyEditor = () => {
   const [isAuthenticated,setIsAuthenticated] = useState(false)
   const [loading,setLoading] = useState(true)
   const [uploadedImage,setUploadedImage] = useState(null) //for storing uploaded image url
   const [previewTitle,setPreviewTitle] = useState(null)
   const [previewContent,setPreviewContent] = useState(null)
+  
   const editorRef = useRef()
    const dispatch = useDispatch()
    const navigate = useNavigate();
-   const {id}=  useParams()
-   const {title,myContent} = useSelector((state)=>state.editor)
+   
+   const location = useLocation()
+   const {title,content} = useSelector((state)=>state.editor)
    console.log(title)
-   const content = myContent.newContent
-   //console.log(content)
+   
+   console.log(content)
     const myUser = auth.currentUser;
     console.log(myUser)
+    //authentication check
 useEffect(()=>{
   onAuthStateChanged(auth,(user)=>{
     if(user){
@@ -35,28 +39,13 @@ useEffect(()=>{
 setLoading(false)
   })
 },[])
+//fetch data when user wants to edit draft post
 
-//after clicking edit button i want to show the content on editor so that we can edit it
-// useEffect(()=>{
-// const fetchPost = async()=>{
-//   try{
-//     const postRef = doc(db,"blog",id);//reference the document by its id
-//     const postSnap = await getDoc(postRef); //fetch the document
-//     if(postSnap.exists()){
-//       const data = postSnap.data()
-//       dispatch(setContentState(data.content))
-//     }
-//   }
-//   catch(err){
-//     console.log(err.message)
-//   }
-// }
-// fetchPost()
-// }
-// ,[])
+
 
 const handleEditorChange = (newContent)=>{
-  dispatch(setContentState({newContent}))
+  console.log(newContent)
+  dispatch(setContentState(newContent))
 }
 
 
@@ -91,7 +80,20 @@ setPreviewTitle(title)
 //const textContent =  previewContentRef.current.appendChild(newContent)
   setPreviewContent(content)
 }
- const handlePost = async()=>{
+const handleSave = ()=>{
+addDocument(false).then((id)=>{
+  window.alert("Post is saved in draft")
+})
+}
+const handlePost= ()=>{
+  addDocument(true).then((id)=>{
+    navigate(`/post/${id}`)
+    console.log(id)
+  })
+  
+
+}
+ const addDocument = async(published)=>{
 try{
   const collectionRef = collection(db,"blog");
   const docRef = await addDoc(collectionRef,
@@ -101,14 +103,14 @@ try{
   content:content,
   image :uploadedImage,
   timestamp:new Date(),
+  published:published,
   type:"blog"
   });
   await updateDoc(docRef,{
     id:docRef.id
   })
 
- console.log(docRef.id) 
- navigate(`/post/${docRef.id}`)
+ return docRef.id
 
 }
 catch(error){
@@ -152,6 +154,7 @@ catch(error){
     
     <div className='flex justify-end mr-8'>
     <button className="btn btn-active btn-neutral mr-2 mt-2" onClick={handlePreview}>Preview</button> 
+    <button className='btn btn-active btn-neutral mr-2 mt-2' onClick={handleSave}>Save to Draft</button>
     <button className="btn btn-active btn-neutral mt-2" onClick={handlePost}>Publish</button>
     
     </div>

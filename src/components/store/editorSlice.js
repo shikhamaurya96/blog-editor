@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     title:"",
-    myContent:""   
+    content:""   
 }
 const editorSlice = createSlice({
     name:"editor",
@@ -13,7 +13,8 @@ const editorSlice = createSlice({
                 state.title = action.payload;
         },
        setContentState:(state,action)=>{
-        state.myContent = action.payload
+        console.log(action.payload)
+        state.content = action.payload
        }
             
         
