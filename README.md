@@ -10,5 +10,7 @@ author : Shikha Maurya
 ![Home screen](./screenshots/home.png "Home Screen")
 ![Editor screen](./screenshots/editor.png "Blog editor Screen")
 ![Blog post screen](./screenshots/post.png "published blog Screen")
+![preview screen](./screenshots/preview.png "preview Screen")
+
 ![published list screen](./screenshots/published-blogs.png "published blogs list Screen")
 ![draft list screen](./screenshots/draft-posts.png "saved posts in draft Screen")
