@@ -123,7 +123,7 @@ catch(error){
   return ( isAuthenticated)?<div className='flex'>
     <div className='w-full h-full relative'>
       <div>
-        <input type='text' placeholder='Title' value={title} className='mb-2 border-2 p-2 outline-none w-full' onChange={(e)=>dispatch(setTitleState(e.target.value))}/>
+        <input type='text' placeholder='Title' value={title} className='mb-2 border-2 p-2 outline-none w-full text-xl ' onChange={(e)=>dispatch(setTitleState(e.target.value))}/>
       </div>
       
     <Editor

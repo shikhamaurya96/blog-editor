@@ -46,9 +46,9 @@ if(error){
     return <div>Error : {error}</div>
 }
   return (
-    <div className=' w-full h-screen bg-slate-300 p-12'>
+    <div className=' w-full mt-12 h-max bg-slate-300 p-12'>
         
-    <div className='w-2/3  mx-auto bg-white shadow-xl h-max'>
+    <div className='w-2/3  mx-auto bg-white shadow-xl '>
      {
         post? (<EditorHtmlRenderer title={post.title} content={post.content}/>) : <p>Post not found</p>
      }
